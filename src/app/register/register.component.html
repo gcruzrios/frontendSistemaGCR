@@ -9,41 +9,50 @@
                             <div class="logo text-center"><img src="assets/img/logo-dark.png" alt="Klorofil Logo"></div>
                             <p class="lead">Registrese Aquí</p>
                         </div>
-                        <form class="form-auth-small" action="index.php">
+                        <form ngNativeValidate [formGroup]="forma" (ngSubmit)="registrarUsuario()" class="form-auth-small" >
                             <div class="form-group">
                                 <label for="signin-nombre" class="control-label sr-only">Nombre</label>
-                                <input type="text" class="form-control" id="signin-nombre" placeholder="Nombre">
+                                <input formControlName="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre">
                             </div>
                             <div class="form-group">
                                 <label for="signin-email" class="control-label sr-only">Email</label>
-                                <input type="email" class="form-control" id="signin-email" placeholder="Email">
+                                <input formControlName="correo" name="correo" type="email" class="form-control" placeholder="Email">
                             </div>
                             <div class="form-group">
                                 <label for="signin-password" class="control-label sr-only">Password</label>
-                                <input type="password" class="form-control" id="signin-password"  placeholder="Password">
+                                <input formControlName="password" name="password"  type="password" class="form-control" placeholder="Password">
                             </div>
                             <div class="form-group">
                                 <label for="signin-password" class="control-label sr-only">Confirm Password</label>
-                                <input type="password" class="form-control" id="signin-password"  placeholder="Confirm Password">
+                                <input formControlName="password2" name="password2" type="password" class="form-control" placeholder="Confirm Password">
+                            </div>
+                            
+                            <div class="form-group">
+                                <p class="text-danger" *ngIf="forma.errors?.sonIguales && !forma.pristine">
+                                    Las contraseñas deben ser iguales
+                                </p>
+                                
                             </div>
                             <div class="form-group clearfix">
                                 <label class="fancy-checkbox element-left">
-                                    <input type="checkbox">
-                                    <span>Remember me</span>
+                                    <input formControlName="condiciones" name="condiciones" type="checkbox">
+                                    <span>Estoy de acuerdo con los <a href="#">Términos</a></span>
                                 </label>
                             </div>
                             <button type="submit" class="btn btn-primary btn-lg btn-block">REGISTRESE</button>
                             <div class="bottom">
-                                <span class="helper-text"><i class="fa fa-lock"></i> <a href="#">Forgot password?</a></span>
+                                <p>Ya tiene una cuenta? <a routerLink="/login" class=""><b>ir a Login Cuenta</b></a></p>
                             </div>
+                            
+
                         </form>
                     </div>
                 </div>
                 <div class="right">
                     <div class="overlay"></div>
                     <div class="content text">
-                        <h1 class="heading">Free Bootstrap dashboard template</h1>
-                        <p>by The Develovers</p>
+                        <h1 class="heading">Sistema de Administración de Productos y Servicios</h1>
+                        <p> GEOINN</p>
                     </div>
                 </div>
                 <div class="clearfix"></div>
