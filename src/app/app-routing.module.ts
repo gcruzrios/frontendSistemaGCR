@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
+
 import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
+//import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
@@ -11,11 +12,10 @@ const routes: Routes = [
   {
     path: '', 
     component: PagesComponent,
-    children :[
-        {path: 'dashboard', component: DashboardComponent},
-        {path: '', redirectTo:'/dashboard', pathMatch: 'full'},
-    ]
+    loadChildren: './pages/pages.module#PagesModule'
+    
   },
+  
   
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
