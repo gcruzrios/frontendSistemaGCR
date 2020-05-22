@@ -21,6 +21,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 //import { ImagenPipe } from './pipes/imagen.pipe';
 
 import { ServicesModule} from './services/services.module';
+import { ModalUploadComponent } from './components/modal-upload/modal-upload.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { ServicesModule} from './services/services.module';
     
     RegisterComponent,
     PagesComponent,
+    ModalUploadComponent,
     //ImagenPipe
     
     

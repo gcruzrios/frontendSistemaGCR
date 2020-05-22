@@ -60,20 +60,26 @@
         </div>
         <!-- END PANEL HEADLINE -->
     </div>
+  
+    <!--  -->
+
     <div class="col-md-4">
         <!-- PANEL NO PADDING -->
         <div class="panel">
             <div class="panel-heading">
                 <h3 class="panel-title">Fotografía</h3>
-                <div class="right">
-                    
-                </div>
             </div>
-            <div class="panel-body no-padding bg-primary text-center">
-                <div class="padding-top-30 padding-bottom-30">
-                    <i class="fa fa-thumbs-o-up fa-5x"></i>
-                    <h3>No Content Padding</h3>
-                </div>
+            <div class="panel-body">
+                <img *ngIf="!imagenTemp" [src]="usuario.img | imagen" class="w150" alt="">
+                <img *ngIf="imagenTemp" [src]="imagenTemp" class="w150" alt="">
+                <br>
+                <br>
+                <input (change)="seleccionImagen( $event.target.files[0] )" type="file" name="" id="">
+                <br>
+                <br>
+                <button (click)="cambiarImagen()" [disabled]="!imagenSubir" type="button"  class="btn btn-block  btn-success waves-effect waves-light m-r-10">
+                    <i class="fa fa-save"></i>
+                    Actualizar foto</button>
             </div>
         </div>
         <!-- END PANEL NO PADDING -->
