@@ -97,24 +97,28 @@ export class UsuarioService {
   }
 
   login( usuario: Usuario, recordar:boolean= false){
-
+    console.log('Entre a login');
+    //console.log (recordar);  
     if (recordar===true){
         localStorage.setItem('email',usuario.email);
     }else{
       localStorage.removeItem('email')
     }
+
     let url = URL_SERVICIOS + '/login';
+    console.log(url);
     return this.http.post(url, usuario)
         .map( (resp:any) =>{
            this.guardarStorage(resp.id, resp.token, resp.usuario);
             // localStorage.setItem('id',resp.id);
             // localStorage.setItem('token',resp.token);
             // localStorage.setItem('usuario',JSON.stringify (resp.usuario));
+            console.log(resp.usuario);
           return true;
           })
           .catch( err =>{
 
-            ///console.log (err.error.mensaje);
+            console.log (err.error.mensaje);
             swal('Error en el login',err.error.mensaje, 'error');
             return Observable.throw(err);
           });
@@ -126,7 +130,7 @@ export class UsuarioService {
      return this.http.post(url, usuario)
         .map( (resp: any) =>{
 
-           // swal('Usuario creado', usuario.email, 'success')
+            swal('Usuario creado', usuario.email, 'success')
             return resp.usuario;
 
         })

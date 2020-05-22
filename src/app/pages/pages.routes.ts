@@ -11,30 +11,39 @@ import { OrdenComponent } from './ordenes/orden.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { ClienteComponent } from './clientes/cliente.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { LoginGuardGuard } from '../services/guards/login.guard';
+import { ProfileComponent } from './profile/profile.component';
 
+//import { LoginGuardGuard, AdminGuard, VerificaTokenGuard } from '../services/services.index';
 
 
 const pagesRoutes: Routes = [
 
-    {path:'dashboard', component: DashboardComponent, data:{ titulo: 'Dashboard Listo'}},
-    //{path:'dashboard', component: DashboardComponent, canActivate:[VerificaTokenGuard], data:{ titulo: 'Dashboard'}},
-    {path:'categorias', component: CategoriasComponent,  data:{ titulo: 'Mantenimiento de Categorias'}},
-    {path:'clientes', component: ClientesComponent ,  data:{ titulo: 'Mantenimiento de Clientes'}},
-    {path:'productos', component: ProductosComponent,  data:{ titulo: 'Mantenimiento de Productos'}},
-    {path:'ordenes', component: OrdenesComponent,  data:{ titulo: 'Mantenimiento de Ordenes'}},
-    
-    //Mantenimientos
-    //{path:'usuarios', component: UsuariosComponent, canActivate:[ AdminGuard], data:{ titulo: 'Mantenimiento de Usuarios'}},
-    {path:'usuarios', component: UsuariosComponent, data:{ titulo: 'Mantenimiento de Usuarios'}},
+            {path:'dashboard', component: DashboardComponent, canActivate:[LoginGuardGuard], data:{ titulo: 'Dashboard Listo'}},
+            //{path:'dashboard', component: DashboardComponent, canActivate:[VerificaTokenGuard], data:{ titulo: 'Dashboard'}},
+            {path:'categorias', component: CategoriasComponent, canActivate:[LoginGuardGuard], data:{ titulo: 'Mantenimiento de Categorias'}},
+            {path:'clientes', component: ClientesComponent , canActivate:[LoginGuardGuard], data:{ titulo: 'Mantenimiento de Clientes'}},
+            {path:'productos', component: ProductosComponent, canActivate:[LoginGuardGuard], data:{ titulo: 'Mantenimiento de Productos'}},
+            {path:'ordenes', component: OrdenesComponent,  canActivate:[LoginGuardGuard],data:{ titulo: 'Mantenimiento de Ordenes'}},
+            
+            //Mantenimientos
+            //{path:'usuarios', component: UsuariosComponent, canActivate:[ AdminGuard], data:{ titulo: 'Mantenimiento de Usuarios'}},
+            {path:'usuarios', component: UsuariosComponent, canActivate:[LoginGuardGuard], data:{ titulo: 'Mantenimiento de Usuarios'}},
+            {path:'profile', component: ProfileComponent, canActivate:[LoginGuardGuard], data:{ titulo: 'Actualización de Usuarios'}},
 
+            {path:'categoria/:id', component: CategoriaComponent, canActivate:[LoginGuardGuard], data:{ titulo: 'Actualización de Categoria'}},
+            {path:'producto/:id', component: ProductoComponent, canActivate:[LoginGuardGuard], data:{ titulo: 'Actualización de Productos'}},
+            {path:'cliente/:id', component: ClienteComponent, canActivate:[LoginGuardGuard], data:{ titulo: 'Actualización de Cliente'}},
+            {path:'orden/:id', component: OrdenComponent,  canActivate:[LoginGuardGuard], data:{ titulo: 'Actualización de Orden'}},
+            {path:'', redirectTo: '/dashboard', pathMatch: 'full'}
 
-    {path:'categoria/:id', component: CategoriaComponent,  data:{ titulo: 'Actualización de Categoria'}},
-    {path:'producto/:id', component: ProductoComponent,  data:{ titulo: 'Actualización de Productos'}},
-    {path:'cliente/:id', component: ClienteComponent,  data:{ titulo: 'Actualización de Cliente'}},
-    {path:'orden/:id', component: OrdenComponent,  data:{ titulo: 'Actualización de Orden'}},
-    {path:'', redirectTo: '/dashboard', pathMatch: 'full'}
+    // {
+    //     path:'',
+    //     component: PagesComponent,
+    //     canActivate:[LoginGuardGuard],
+    //     children:[
+
     
-   
 ];
 
 export const PAGES_ROUTES = RouterModule.forChild(pagesRoutes);

@@ -1,10 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { CommonModule } from '@angular/common';
+
 //APP_ROUTES
 import { PagesModule } from './pages/pages.module';
 
 import { PagesComponent } from './pages/pages.component';
+import { PipesModule } from './pipes/pipes.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/header/header.component';
@@ -15,6 +18,9 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+//import { ImagenPipe } from './pipes/imagen.pipe';
+
+import { ServicesModule} from './services/services.module';
 
 
 @NgModule({
@@ -24,9 +30,10 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
     SidebarComponent,
     LoginComponent,
     NopagefoundComponent,
-    //DashboardComponent,
+    
     RegisterComponent,
-    PagesComponent
+    PagesComponent,
+    //ImagenPipe
     
     
   ],
@@ -37,8 +44,15 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
     PagesModule,
     FormsModule,
     ReactiveFormsModule,
+    ServicesModule,
+    PagesModule,
+    CommonModule,
+    PipesModule,
   ],
   providers: [],
+  exports:[
+    //ImagenPipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

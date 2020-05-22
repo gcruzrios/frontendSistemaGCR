@@ -1,7 +1,10 @@
-//import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule } from "@angular/core";
+
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
-//import { PagesComponent } from './pages.component';
+import { PipesModule } from '../pipes/pipes.module';
+
 import { CategoriasComponent } from './categorias/categorias.component';
 import { CategoriaComponent } from './categorias/categoria.component';
 import { ProductosComponent } from './productos/productos.component';
@@ -12,13 +15,15 @@ import { ClientesComponent } from './clientes/clientes.component';
 import { ClienteComponent } from './clientes/cliente.component';
 import { PAGES_ROUTES } from './pages.routes';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { UsuarioComponent } from './usuarios/usuario.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
     declarations: [
       
       DashboardComponent,
       
-      //PagesComponent,
+      
       CategoriasComponent,
       CategoriaComponent,
       ProductosComponent,
@@ -27,12 +32,17 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
       ClientesComponent,
       ClienteComponent,
       ProductoComponent,
-      UsuariosComponent
+      UsuariosComponent,
+      UsuarioComponent,
+      ProfileComponent,
+      
       
     ],
     imports: [
-      //BrowserModule,
-      //AppRoutingModule,
+      CommonModule,
+      FormsModule,
+      PipesModule,
+      
       PAGES_ROUTES,
     ],
     providers: [],
