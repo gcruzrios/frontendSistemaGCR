@@ -5,7 +5,7 @@ import { URL_SERVICIOS } from '../config/config';
 import  swal from 'sweetalert';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-
+import { UsuarioService } from './usuario.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,9 +13,9 @@ export class ProductoService {
 
   producto: Producto;
   token:string;
-  menu: any = [];
+  
 
-  constructor(public http: HttpClient,
+  constructor(public http: HttpClient, public _usuarioService : UsuarioService,
               public router: Router) { }
 
   cargarProductos(desde: number = 0){
@@ -28,11 +28,13 @@ export class ProductoService {
   cargarProducto( id: string ){
 
     let url =URL_SERVICIOS +'/producto/' + id;
-        url += '?token=' + this.token;
+        url += '?token=' + this._usuarioService.token;
 
       return this.http.get(url)
-        
+         .map ((resp:any) => resp.producto);
   }
+
+  
 
   crearProducto( producto: Producto){
     let url = URL_SERVICIOS + '/producto';
@@ -54,7 +56,7 @@ export class ProductoService {
   actualizarProducto(producto: Producto){
 
   let url = URL_SERVICIOS + '/producto/' + producto._id;
-  url += '?token='+ this.token;
+  url += '?token='+ this._usuarioService.token;
   //console.log ('url: '+ url);
   return this.http.put(url, producto)
           .map( (resp:any) => {
@@ -81,7 +83,7 @@ export class ProductoService {
   borrarProducto( id: string ){
 
     let url =URL_SERVICIOS +'/producto/' + id;
-         url += '?token=' + this.token;
+         url += '?token=' + this._usuarioService.token;
  
       return this.http.delete(url)
          .map(resp =>{

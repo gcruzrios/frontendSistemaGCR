@@ -6,6 +6,8 @@ import  swal from 'sweetalert';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
+import { UsuarioService } from './usuario.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +17,7 @@ export class CategoriaService {
   token:string;
   menu: any = [];
 
-  constructor(public http: HttpClient,
+  constructor(public http: HttpClient, public _usuarioService : UsuarioService,
               public router: Router) { }
 
   cargarCategorias(desde: number = 0){
@@ -28,11 +30,13 @@ export class CategoriaService {
   CargarCategoria( id: string ){
 
     let url =URL_SERVICIOS +'/categoria/' + id;
-        url += '?token=' + this.token;
+        url += '?token=' + this._usuarioService.token;
 
       return this.http.get(url)
-        
+         .map ((resp:any) => resp.categoria);
   }
+
+  
 
   crearCategoria( categoria: Categoria){
     let url = URL_SERVICIOS + '/categoria';
@@ -54,7 +58,7 @@ export class CategoriaService {
   actualizarCategoria(categoria: Categoria){
 
   let url = URL_SERVICIOS + '/categoria/' + categoria._id;
-  url += '?token='+ this.token;
+  url += '?token='+ this._usuarioService.token;
   //console.log ('url: '+ url);
   return this.http.put(url, categoria)
           .map( (resp:any) => {
@@ -81,7 +85,7 @@ export class CategoriaService {
   borrarCategoria( id: string ){
 
     let url =URL_SERVICIOS +'/categoria/' + id;
-         url += '?token=' + this.token;
+         url += '?token=' + this._usuarioService.token;
  
       return this.http.delete(url)
          .map(resp =>{

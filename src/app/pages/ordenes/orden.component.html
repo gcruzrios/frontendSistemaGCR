@@ -1,1 +1,173 @@
-<p>orden works!</p>
+<div class="row">
+    <div class="col-md-12">
+        <!-- PANEL HEADLINE -->
+        <div class="panel panel-headline">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Info de la Orden</h3>
+                        <p class="panel-subtitle"></p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="panel-heading">
+                        
+                        <p class="panel-subtitle"><a routerLink="/ordenes">Ir a Ordenes +</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <h4>Opciones de Actualización</h4>
+                <p></p>
+                <!-- <form ngNativeValidate #f="ngForm" (ngSubmit)="guardar(f.value)" class="form p-t-20"> -->
+                <form #f="ngForm" ngNativeValidate (ngSubmit)="guardar(f.value, orden.cliente._id, orden.usuario._id)">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="exampleInputuname">Cliente</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                                    <input [ngModel]="orden.cliente.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre de usuario" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            
+                            <div class="form-group">
+                                <label for="exampleInputuname">Nº de Orden:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                                    <input [ngModel]="orden.num_orden" name="num_orden" type="text" class="form-control" placeholder="Numero de Orden" required>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="exampleInputuname">Contacto</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                                    <input [ngModel]="orden.cliente.contacto" name="contacto" type="text" class="form-control" placeholder="Nombre de usuario" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Fecha</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-email"></i></div>
+                                    <input [ngModel]="orden.fechaCreado.toString().substring(0,10)" [disabled] name="fecha" type="date" class="form-control"  placeholder="Enter correo" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Tipo</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-email"></i></div>
+                                    <input [ngModel]="orden.tipo" [disabled] name="tipo" type="text" class="form-control"  placeholder="COTIZACION" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Total</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-email"></i></div>
+                                    <input [ngModel]="totalAmount"  name="total" type="decimal" class="form-control"  placeholder="0.0" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    
+                    <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">
+                        <i class="fa fa-save"></i>
+                        Guardar</button>
+                   
+                    
+                </form>
+            </div>
+            
+        </div>
+        <!-- END PANEL HEADLINE -->
+    </div>
+    
+
+
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-12">
+      <!-- TABLE HOVER -->
+      <div class="panel">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel-heading">
+          
+                    <h3 class="panel-title">Listado de Items de la Orden</h3>
+                </div>
+            </div> 
+            <div class="col-md-4">
+                    <br>
+                    <button (click)="crearItem()" type="button" class="btn btn-success waves-effect waves-light m-r-10">
+                        <i class="fa fa-plus"></i>
+                        Crear Item</button>
+                    
+                
+            </div>    
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Num Orden</th>
+                        <th>Cantidad</th>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of items; let i = index">
+                        <td class="w70">
+                            {{ i +1 }}
+                        </td>
+                        
+                        <td>{{ item.orden.num_orden}}</td>
+                        <td>{{ item.cantidad }}</td>
+                        <td>{{ item.producto.nombre}}</td>  
+                        <td>{{ item.precio}}</td>    
+                        <td>
+                            <button [routerLink]="['/orden', orden._id]" class="btn btn-primary">
+                                <i class="fa fa-save"></i>
+                            </button>
+                        
+                            <button (click)="borrarItem(item, orden._id)" class="btn btn-danger">
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+
+            
+            
+           
+            
+        </div>
+    </div>
+    <!-- END TABLE HOVER -->
+    </div>
+    
+</div>

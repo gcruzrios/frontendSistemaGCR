@@ -6,7 +6,7 @@ import { URL_SERVICIOS } from '../config/config';
 import  swal from 'sweetalert';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-
+import { UsuarioService } from './usuario.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,9 +14,9 @@ export class ClienteService {
 
   cliente: Cliente;
   token:string;
-  menu: any = [];
+ 
 
-  constructor(public http: HttpClient,
+  constructor(public http: HttpClient,public _usuarioService : UsuarioService,
               public router: Router) { }
 
   cargarClientes(desde: number = 0){
@@ -29,11 +29,13 @@ export class ClienteService {
   cargarCliente( id: string ){
 
     let url =URL_SERVICIOS +'/cliente/' + id;
-        url += '?token=' + this.token;
+        url += '?token=' + this._usuarioService.token;
 
       return this.http.get(url)
-        
+         .map ((resp:any) => resp.cliente);
   }
+
+  
 
   crearCliente( cliente: Cliente){
     let url = URL_SERVICIOS + '/cliente';
@@ -55,7 +57,7 @@ export class ClienteService {
   actualizarCliente(cliente: Cliente){
 
   let url = URL_SERVICIOS + '/cliente/' + cliente._id;
-  url += '?token='+ this.token;
+  url += '?token='+ this._usuarioService.token;
   //console.log ('url: '+ url);
   return this.http.put(url, cliente)
           .map( (resp:any) => {
@@ -82,7 +84,7 @@ export class ClienteService {
   borrarCliente( id: string ){
 
     let url =URL_SERVICIOS +'/cliente/' + id;
-         url += '?token=' + this.token;
+         url += '?token=' + this._usuarioService.token;
  
       return this.http.delete(url)
          .map(resp =>{

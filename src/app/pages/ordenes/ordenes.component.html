@@ -1,1 +1,68 @@
-<p>ordenes works!</p>
+<div class="row">
+    <div class="col-md-12">
+      <!-- TABLE HOVER -->
+      <div class="panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">Listado de Ordenes</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Num Orden</th>
+                        <th>Fecha Creada</th>
+                        <th>Tipo</th>
+                        <th>Cliente</th>
+                        <th>Total</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let orden of ordenes; let i = index">
+                        <td class="w70">
+                            {{ i +1 }}
+                        </td>
+                        
+                        <td>{{ orden.num_orden}}</td>
+                        <td>{{ orden.fechaCreado.substring(0,10)}}</td>
+                        <td>{{ orden.tipo}}</td>  
+                        <td>{{ orden.cliente.nombre}}</td>
+                        <td>{{ orden.total}}</td>    
+                        <td>
+                            <button [routerLink]="['/orden', orden._id]" class="btn btn-primary">
+                                <i class="fa fa-save"></i>
+                            </button>
+                        
+                            <button (click)="borrarOrden(orden)" class="btn btn-danger">
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+
+            <button (click)="cambiarDesde(-5)" class="btn btn-secondary">
+                Anteriores
+            </button>
+            <button (click)="cambiarDesde(5)" class="btn btn-secondary">
+                Siguientes
+            </button>
+            <div class="left">
+                
+            </div>
+            <div class="right">
+               
+            </div>
+            
+           
+            
+        </div>
+    </div>
+    <!-- END TABLE HOVER -->
+    </div>
+    
+</div>
+
+
