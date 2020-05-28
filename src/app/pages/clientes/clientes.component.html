@@ -2,9 +2,23 @@
     <div class="col-md-12">
       <!-- TABLE HOVER -->
       <div class="panel">
-        <div class="panel-heading">
-            <h3 class="panel-title">Listado de Clientes</h3>
-        </div>
+        
+
+        <div class="row">
+            <div class="col-md-9">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Listado de Clientes</h3>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <br>
+                    <button [routerLink]="['/cliente','nuevo']" type="button" class="btn btn-success waves-effect waves-light m-r-10">
+                        <i class="fa fa-plus"></i>
+                        Crear Cliente</button>
+            </div>    
+        </div> 
+
+
         <div class="panel-body">
             <table class="table table-hover">
                 <thead>
@@ -30,7 +44,7 @@
                         <td>{{ cliente.telefono}}</td>
                         <td>{{ cliente.tipo}}</td>    
                         <td>
-                            <button (click)="guardarCliente(cliente)" class="btn btn-primary">
+                            <button [routerLink]="['/cliente', cliente._id]" class="btn btn-primary">
                                 <i class="fa fa-save"></i>
                             </button>
                         

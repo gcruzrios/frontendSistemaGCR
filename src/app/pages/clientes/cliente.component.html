@@ -1,1 +1,209 @@
-<p>cliente works!</p>
+<div class="row">
+    <div class="col-md-12">
+        <!-- PANEL HEADLINE -->
+        <div *ngIf = "(producto_id != 'nuevo')" class="panel panel-headline">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Info de Cliente</h3>
+                        <p class="panel-subtitle"></p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="panel-heading">
+                        
+                        <p class="panel-subtitle"><a routerLink="/clientes">Ir a Clientes +</a></p>
+                    </div>
+                </div>
+            </div>
+            <div  class="panel-body">
+                <h4>Opciones de Actualización</h4>
+                <p></p>
+                <!-- <form ngNativeValidate #f="ngForm" (ngSubmit)="guardar(f.value)" class="form p-t-20"> -->
+                    <form #f="ngForm" ngNativeValidate (ngSubmit)="guardar(f.value)" class="form p-t-20">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="form-group">
+                                    <label for="exampleInputuname">Nombre</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="ti-user"></i></div>
+                                        <input [(ngModel)]="cliente.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del Cliente" required>
+                                    </div>
+                                   
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                
+                                <div class="form-group">
+                                    <label for="exampleInputuname">Teléfono:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="ti-user"></i></div>
+                                        <input [(ngModel)]="cliente.telefono" name="telefono" type="text" class="form-control" placeholder="Telefono" required>
+                                    </div>
+                                </div>
+                                
+                                
+                            </div>
+                        </div>
+                       
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Contacto:</label>
+                                    
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="ti-user"></i></div>
+                                        <input [(ngModel)]="cliente.contacto" name="contacto" type="text" class="form-control" placeholder="Nombre de Contacto" required>
+                                    </div>
+    
+                                   
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="ti-email"></i></div>
+                                        <input [(ngModel)]="cliente.email"  name="cliente" type="text" class="form-control"  placeholder="Ingrese Email" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Tipo de Cliente:</label>
+                                    
+                                    <select [(ngModel)]="cliente.tipo" name="tipo" class="form-control">
+                                        <option value="CLIENTE_FISICO">CLIENTE_FISICO</option>
+                                        <option value="CLIENTE_JURIDICO">CLIENTE_JURIDICO</option>
+    
+                                    </select>
+    
+                                   
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">
+                            <i class="fa fa-save"></i>
+                            Guardar</button>
+                       
+                        
+                    </form>
+            </div>
+            
+        </div>
+        <!-- END PANEL HEADLINE -->
+
+        <!-- PANEL HEADLINE -->
+        <div *ngIf = "(producto_id === 'nuevo')" class="panel panel-headline">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Info del Cliente</h3>
+                        <p class="panel-subtitle"></p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="panel-heading">
+                        
+                        <p class="panel-subtitle"><a routerLink="/clientes">Ir a Clientes +</a></p>
+                    </div>
+                </div>
+            </div>
+            <div  class="panel-body">
+                <h4>Opciones de Inserción</h4>
+                <p></p>
+                <!-- <form ngNativeValidate #f="ngForm" (ngSubmit)="guardar(f.value)" class="form p-t-20"> -->
+                <form #f="ngForm" ngNativeValidate (ngSubmit)="guardarNuevo(f.value)" class="form p-t-20">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label for="exampleInputuname">Nombre</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                                    <input [(ngModel)]="cliente.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del Cliente" required>
+                                </div>
+                               
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            
+                            <div class="form-group">
+                                <label for="exampleInputuname">Teléfono:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                                    <input [(ngModel)]="cliente.telefono" name="telefono" type="text" class="form-control" placeholder="Telefono" required>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                   
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Contacto:</label>
+                                
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                                    <input [(ngModel)]="cliente.contacto" name="contacto" type="text" class="form-control" placeholder="Nombre de Contacto" required>
+                                </div>
+
+                               
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-email"></i></div>
+                                    <input [(ngModel)]="cliente.email"  name="cliente" type="text" class="form-control"  placeholder="Ingrese Email" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Tipo de Cliente:</label>
+                                
+                                <select [(ngModel)]="cliente.tipo" name="tipo" class="form-control">
+                                    <option value="PRODUCTO">CLIENTE_FISICO</option>
+                                    <option value="SERVICIO">CLIENTE_JURIDICO</option>
+
+                                </select>
+
+                               
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">
+                        <i class="fa fa-save"></i>
+                        Guardar</button>
+                   
+                    
+                </form>
+            </div>
+            
+        </div>
+        <!-- END PANEL HEADLINE -->
+    </div>
+    
+
+
+</div>
+

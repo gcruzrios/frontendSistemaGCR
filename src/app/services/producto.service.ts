@@ -39,6 +39,7 @@ export class ProductoService {
 
   crearProducto( producto: Producto){
     let url = URL_SERVICIOS + '/producto';
+        url += '?token=' + this._usuarioService.token;
     return this.http.post(url, producto)
       .map( (resp: any) =>{
 
@@ -62,11 +63,7 @@ export class ProductoService {
   return this.http.put(url, producto)
           .map( (resp:any) => {
 
-            if (producto._id === this.producto._id){
-
-              let productoDB: Producto = resp.categoria;
-              //this.guardarStorage(usuarioDB._id, this.token, usuarioDB)
-            }
+            
             swal('Producto Actualizado', producto.nombre, 'success' );
             return true;
             

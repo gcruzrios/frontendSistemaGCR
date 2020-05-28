@@ -39,6 +39,7 @@ export class ClienteService {
 
   crearCliente( cliente: Cliente){
     let url = URL_SERVICIOS + '/cliente';
+    url += '?token='+ this._usuarioService.token;
     return this.http.post(url, cliente)
       .map( (resp: any) =>{
 

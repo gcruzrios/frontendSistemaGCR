@@ -87,13 +87,10 @@ export class CategoriaService {
   //console.log ('url: '+ url);
   return this.http.put(url, categoria)
           .map( (resp:any) => {
-
-            if (categoria._id === this.categoria._id){
-
-              let categoriaDB: Categoria = resp.categoria;
-              //this.guardarStorage(usuarioDB._id, this.token, usuarioDB)
-            }
+            console.log('CategoriaID:',categoria._id);
+            
             swal('Categoria Actualizada', categoria.nombre, 'success' );
+            
             return true;
             
           })
@@ -103,6 +100,7 @@ export class CategoriaService {
             swal(err.error.mensaje, err.error.errors.message, 'error');
             return Observable.throw(err);
           });
+          
   
 
   }

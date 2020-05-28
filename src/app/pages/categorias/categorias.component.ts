@@ -63,5 +63,31 @@ export class CategoriasComponent implements OnInit {
         .subscribe(); 
         console.log("Estoy en guardar Categoria");  
     // .subscribe(()=> this.cargarHospitales());
-}
+  }
+
+
+  
+  borrarCategoria(categoria: Categoria){
+   swal({
+      title: 'Está seguro?',
+      text: 'Va a borrar la siguiente categoría : ' + categoria.nombre,
+      icon: 'warning',
+
+      buttons:{cancel:true,confirm:true},
+      //buttons: true,
+      dangerMode: true,
+    })
+    .then((borrar) => {
+
+      console.log(borrar);
+      if (borrar) {
+
+        this._categoriaService.borrarCategoria( categoria._id)
+        .subscribe( () => this.CargarCategorias());
+      
+      }
+    });
+
+
+  }
 }

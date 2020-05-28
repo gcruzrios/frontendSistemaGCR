@@ -35,4 +35,28 @@ export class ClientesComponent implements OnInit {
         })
   }
 
+
+  borrarCliente(cliente: Cliente){
+    swal({
+       title: 'Está seguro?',
+       text: 'Va a borrar el siguiente cliente : ' + cliente.nombre,
+       icon: 'warning',
+ 
+       buttons:{cancel:true,confirm:true},
+       //buttons: true,
+       dangerMode: true,
+     })
+     .then((borrar) => {
+ 
+       console.log(borrar);
+       if (borrar) {
+ 
+         this._clienteService.borrarCliente( cliente._id)
+         .subscribe( () => this.CargarClientes());
+       
+       }
+     });
+ 
+ 
+   }
 }

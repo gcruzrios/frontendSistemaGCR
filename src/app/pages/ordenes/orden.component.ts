@@ -101,9 +101,7 @@ export class OrdenComponent implements OnInit {
     return 0;
   }
 
-  CalcularTotal(id: string){
 
-  }
 
   add(items){ 
     //console.log(items);
@@ -184,12 +182,7 @@ export class OrdenComponent implements OnInit {
     this.orden.cliente= id_cliente;
     this.orden.usuario = id_usuario;
 
-    // console.log(f.value);
-
-    // if (f.invalid){
-    //   return;
-
-    // }
+    
 
     this._ordenService.actualizarOrden(this.orden)
         .subscribe ( orden =>{
