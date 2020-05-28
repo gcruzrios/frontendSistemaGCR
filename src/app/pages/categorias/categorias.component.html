@@ -2,9 +2,26 @@
     <div class="col-md-12">
       <!-- TABLE HOVER -->
       <div class="panel">
-        <div class="panel-heading">
-            <h3 class="panel-title">Listado de Categorias</h3>
-        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Listado de Categorias</h3>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <br>
+                    <button (click)="crearCategoria()" type="button" class="btn btn-success waves-effect waves-light m-r-10">
+                        <i class="fa fa-plus"></i>
+                        Crear Categoría</button>
+            </div>    
+        </div> 
+
+
+
+
+
+
+        
         <div class="panel-body">
             <table class="table table-hover">
                 <thead>
@@ -19,7 +36,13 @@
                         <td class="w70">
                             {{ i +1 }}
                         </td>
-                        <td>{{ categoria.nombre}}</td>
+
+                        
+                        <td>
+                            
+                            <input [(ngModel)]="categoria.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre de la Categoria">
+                            
+                        </td>
                                               
                         <td>
                             <button (click)="guardarCategoria(categoria)" class="btn btn-primary">

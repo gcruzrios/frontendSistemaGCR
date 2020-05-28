@@ -1,12 +1,12 @@
 import { NgModule } from "@angular/core";
 
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PipesModule } from '../pipes/pipes.module';
 
 import { CategoriasComponent } from './categorias/categorias.component';
-import { CategoriaComponent } from './categorias/categoria.component';
+
 import { ProductosComponent } from './productos/productos.component';
 import { ProductoComponent } from './productos/producto.component';
 import { OrdenesComponent } from './ordenes/ordenes.component';
@@ -17,6 +17,8 @@ import { PAGES_ROUTES } from './pages.routes';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { UsuarioComponent } from './usuarios/usuario.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ItemsComponent } from './items/items.component';
+import { ItemComponent } from './items/item.component';
 
 @NgModule({
     declarations: [
@@ -25,7 +27,7 @@ import { ProfileComponent } from './profile/profile.component';
       
       
       CategoriasComponent,
-      CategoriaComponent,
+      
       ProductosComponent,
       OrdenesComponent,
       OrdenComponent,
@@ -35,6 +37,8 @@ import { ProfileComponent } from './profile/profile.component';
       UsuariosComponent,
       UsuarioComponent,
       ProfileComponent,
+      ItemsComponent,
+      ItemComponent,
       
       
     ],
@@ -42,7 +46,7 @@ import { ProfileComponent } from './profile/profile.component';
       CommonModule,
       FormsModule,
       PipesModule,
-      
+      ReactiveFormsModule,
       PAGES_ROUTES,
     ],
     providers: [],

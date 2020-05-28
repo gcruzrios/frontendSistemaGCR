@@ -1,0 +1,104 @@
+<h4>Formularios <small>template</small></h4>
+<hr> <!-- onsubmit="return false" -->
+<!-- <form #f="ngForm" ngNativeValidate (ngSubmit)="guardarMedico(f)"></form> -->
+<form #forma="ngForm" novalidate="" (ngSubmit)="guardar(forma)">
+
+  <div class="container">
+    <div class="form-group row" [ngClass]="">
+        <label class="col-2 col-form-label">Num linea</label>
+        <div class="col-2">
+  
+          <input class="form-control"
+                 type="number"
+                 placeholder="1"
+                 name="num_linea"
+                 [(ngModel)]="item.num_linea"
+                 minlength="3"
+                 required
+                 #num_linea="ngModel">
+          
+        </div>
+      </div>
+    <div class="form-group row" [ngClass]="">
+        <label class="col-2 col-form-label">Orden</label>
+        <div class="col-8">
+  
+  
+          <select [(ngModel)]="item.orden" 
+                   name="orden" 
+                   class="form-control">
+              <option *ngFor="let orden of ordenes" [value]="orden._id">{{orden.num_orden}}</option>
+          
+          </select>
+          
+        </div>
+                 
+    </div>
+    <div class="form-group row" [ngClass]="">
+      <label class="col-2 col-form-label">Cantidad</label>
+      <div class="col-2">
+
+        <input class="form-control"
+               type="number"
+               placeholder="1"
+               name="cantidad"
+               [(ngModel)]="item.cantidad"
+               minlength="3"
+               required
+               #cantidad="ngModel">
+        
+      </div>
+    </div>
+    
+    <div class="form-group row" [ngClass]="">
+      <label class="col-2 col-form-label">Producto</label>
+      <div class="col-8">
+
+
+        <select [(ngModel)]="item.producto" (change)="CalcularPrecio($event.target.value, Item.cantidad)"
+                 name="producto" 
+                 class="form-control">
+            <option *ngFor="let producto of productos" [value]="producto._id">{{producto.nombre}}</option>
+        
+        </select>
+
+        
+               
+       </div>
+
+    </div>
+    <div class="form-group row" [ngClass]="">
+        <label class="col-2 col-form-label">Precio</label>
+        <div class="col-2">
+  
+          <input class="form-control"
+                 type="number"
+                 placeholder="1"
+                 name="precio"
+                 [(ngModel)]="item.precio"
+                 minlength="3"
+                 required
+                 #cantidad="ngModel">
+          
+        </div>
+      </div>
+
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">&nbsp;</label>
+      <div class="input-group col-md-8">
+        <button [disabled]="!forma.valid" type="submit" class="btn btn-outline-primary">
+          Guardar
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+ 
+
+</form>
+
+<pre>
+    {{Item | json }}
+</pre>

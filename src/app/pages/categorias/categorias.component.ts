@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Categoria } from '../../models/categoria.model';
 import { CategoriaService } from '../../services/categoria.service';
-import { URL_SERVICIOS } from '../../config/config';
+
 import  swal from 'sweetalert';
 
 @Component({
@@ -33,4 +33,35 @@ export class CategoriasComponent implements OnInit {
             this.cargando = false;
         })
   }
+
+  crearCategoria(){
+    
+    swal({
+      title:'Crear Categoria',
+      text:'Ingrese el nombre de la Categoria',
+      content: {element: "input" },
+      //content:"input",
+      //type: "input",
+      icon: 'info',
+      buttons:{cancel:true,confirm:true},
+      
+      //DangerMode: true,
+    }).then ((valor:string )=>{
+
+      if (!valor || valor.length ===0 ){
+        return;
+      }
+      this._categoriaService.crearCategoria(valor)
+        .subscribe(()=> this.CargarCategorias());
+    });
+  }
+
+  
+  guardarCategoria(categoria: Categoria){
+    console.log(categoria);
+    this._categoriaService.actualizarCategoria( categoria )
+        .subscribe(); 
+        console.log("Estoy en guardar Categoria");  
+    // .subscribe(()=> this.cargarHospitales());
+}
 }

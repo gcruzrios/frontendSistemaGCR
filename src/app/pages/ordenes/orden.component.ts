@@ -3,11 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { OrdenService } from '../../services/orden.service';
 import { ItemService } from '../../services/item.service';
 import { ProductoService } from '../../services/producto.service';
+import { ClienteService } from '../../services/cliente.service';
 
 import { NgForm } from '@angular/forms';
 import { Item } from '../../models/item.model';
 import { Orden } from '../../models/orden.model';
 import { Producto } from '../../models/producto.model';
+import { Cliente } from '../../models/cliente.model';
 
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -20,10 +22,14 @@ import { ModalUploadService } from '../../components/modal-upload/modal-upload.s
   styleUrls: ['./orden.component.css']
 })
 export class OrdenComponent implements OnInit {
-
+  orden_id: string = ''
   totalR: number = 0; 
   items: Item[] = [];
   productos: Producto[] = [];
+
+  clientes: Cliente[] = [];
+
+
 
   orden : Orden = new Orden( '', 0, 0, new Date(), '', '', '');
   desde: number = 0;
@@ -38,18 +44,31 @@ export class OrdenComponent implements OnInit {
   cargando: boolean = true;
   constructor(public _ordenService: OrdenService,
               public _itemService: ItemService,
+              public _clienteService: ClienteService,
+              
               public _modalUploadService : ModalUploadService,
+
               public _productoService: ProductoService,
               public router: Router,
               public activatedRoute: ActivatedRoute) {
 
+    
+
     activatedRoute.params.subscribe( params => {
       let id = params['id'];
 
+
+      this._itemService.listen().subscribe((m:any) => {
+        console.log(m);
+        this.CargarItems(id);
+      })
       if (id !== 'nuevo'){
         this.CargarOrden(id);
         this.CargarItems(id);
-        
+        this.orden_id= id; 
+      }else{
+        this.orden_id='nuevo';
+        this.CargarClientes();
       }
      });
 
@@ -59,7 +78,13 @@ export class OrdenComponent implements OnInit {
   
 
   ngOnInit() {
-   this.CargarProductos();
+   //this.CargarProductos();
+   this._modalUploadService.notificacion
+        .subscribe( ()=> this.CargarProductos() );
+   
+   if (this.orden_id === 'nuevo'){
+       this.CargarClientes();
+     }      
   }
 
   getTotal(items, calculationProperty: string) {
@@ -104,6 +129,20 @@ export class OrdenComponent implements OnInit {
    
   }
 
+
+  CargarClientes(){
+
+    this.cargando = true;
+
+    this._clienteService.cargarClientes(this.desde)
+        .subscribe((resp: any)=> {
+            //console.log (resp);
+            //this.totalRegistros = resp.total;
+            this.clientes = resp.clientes;
+            this.cargando = false;
+        })
+  }
+
   CargarProductos(){
 
     this.cargando = true;
@@ -118,8 +157,21 @@ export class OrdenComponent implements OnInit {
   }
     
   
-    guardarOrden (f: NgForm ){
-   
+    guardarNuevo (f: NgForm){
+      console.log(f.value);
+      if (f.invalid){
+        return;
+      }
+      console.log(this.orden);
+      this._ordenService.crearOrden(this.orden)
+  
+          .subscribe ( orden =>{
+            
+              this.orden._id = orden._id;
+  
+              this.router.navigate(['/orden', orden._id]);
+  
+          })
 
     }
 
@@ -151,7 +203,8 @@ export class OrdenComponent implements OnInit {
   }
 
   crearItem(id_orden: string){
-    this._modalUploadService.mostrarModal('hospitales', id_orden)
+    //console.log('Estoy en crear item');
+    this._modalUploadService.mostrarModal('productos', id_orden)
   }
 
   borrarItem(item: Item, id_orden:string){

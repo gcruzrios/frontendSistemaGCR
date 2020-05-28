@@ -26,12 +26,13 @@ export class ProductoService {
   }
  
   cargarProducto( id: string ){
-
-    let url =URL_SERVICIOS +'/producto/' + id;
-        url += '?token=' + this._usuarioService.token;
+    console.log( id );
+    let url =URL_SERVICIOS +'/producto/'+ id;
+        //url += '?token=' + this._usuarioService.token;
 
       return this.http.get(url)
          .map ((resp:any) => resp.producto);
+         //return resp.producto;
   }
 
   

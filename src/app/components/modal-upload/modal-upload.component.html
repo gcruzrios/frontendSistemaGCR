@@ -3,23 +3,106 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Modal title</h5>
               <button (click)="cerrarModal()" type="button" class="close" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
+              <h5 class="modal-title">Cargando productos de la orden</h5>
+                    
+                  <div class="modal-body text-center" >
+                    <form ngNativeValidate [formGroup]="forma" (ngSubmit)="registrarItem()" class="form-auth-small" >
+                      <div class="row">
+                        <div class="col-md-3">
+                          <label class="col-2 col-form-label">Cantidad</label>
+                            <div class="form-group">
+                              <label for="signin-cantidad" class="control-label sr-only">Cantidad</label>
+                              <input formControlName="cantidad" name="cantidad" type="number" class="form-control" placeholder="1">
+                            </div>
+                          </div>
+                          
+                          <div class="col-md-6">
+                            <label class="col-2 col-form-label">Producto</label>
+                            <select class="custom-select" (change)="calcularPrecio($event)" formControlName="producto" name="producto" class="form-control">
+                                <option value="" disabled>Escoja el producto</option>
+                                <option *ngFor="let producto of productos" [ngValue]="producto._id">{{producto.nombre}}</option>
+                            </select>
+                          </div>
+                    <!--  <div class="form-group">
+                          <label for="signin-producto" class="control-label sr-only">Producto</label>
+                          <input formControlName="producto" name="producto" type="text" class="form-control" placeholder="producto">
+                      </div> -->
+                    <!--  <select class="custom-select" (change)="changeCity($event)" formControlName="orden" name="orden">
+                          <option value="" disabled>Escoja la orden</option>
+                          <option *ngFor="let orden of ordenes" [ngValue]="orden._id">{{orden.num_orden}}</option>
+                      </select> -->
+                      <!-- <div class="form-group">
+                          <label for="signin-orden" class="control-label sr-only">Orden</label>
+                          <input formControlName="orden" name="orden" type="text" class="form-control" placeholder="orden">
+                      </div> -->
+                      
+                      <div class="col-md-3">
+                         <label class="col-2 col-form-label">Precio</label>
+                          <div class="form-group">
+                              <label for="signin-precio" class="control-label sr-only">Precio</label>
+                              <input formControlName="precio" name="precio" type="decimal" class="form-control" placeholder="0">
+                          </div>
+                      </div>
+                   
+                  
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Guardar</button>
             </div>
-            <div class="modal-body text-center" >
-
-                <img *ngIf="!imagenTemp" [src]="'xxx' | imagen" class="w150" alt="">
-                <img *ngIf="imagenTemp" [src]="imagenTemp" class="w150" alt="">
-                <input (change)="seleccionImagen( $event.target.files[0] )" type="file" name="" id="">
               
-            </div>
-            <div class="modal-footer">
-              <button (click)="cerrarModal()" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-              <button (click)="subirImagen()" [disabled] ="!imagenTemp" type="button" class="btn btn-primary">Subir Imagen</button>
-            </div>
+          
+          </form>
+        </div>
+
+
+
+
+
+
+
+            <!-- Version con NgForms que no funciona -->
+            
+            <!-- <form #f="ngForm" ngNativeValidate (ngSubmit)="guardar(f.value, item.orden)">
+              <div class="modal-body text-center" >
+                <div class="row">
+                      <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Cantidad</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-email"></i></div>
+                                <input [ngModel]="item.cantidad" name="cantidad" type="number" class="form-control"  placeholder="1" required>
+                            </div>
+                        </div>
+                      </div>  
+                      <div class="col-md-9">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Producto</label>
+
+                                  <select [(ngModel)]="item.producto" name="producto" class="form-control">
+                                  <option *ngFor="let producto of productos" [value]="producto._id">{{producto.nombre}}</option>
+                              
+                          </select> 
+                        </div>
+                      </div> 
+                </div> 
+                
+              </div>
+              <div class="modal-footer">
+                <button (click)="cerrarModal()" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button (click)="GuardarProducto()"  type="button" class="btn btn-primary">Ingresar Producto</button>
+              </div>
+           </form> -->
+
+           <!-- Fin de version con NgForm -->
+
+
+
           </div>
         </div>
       </div>
 </div>
+
+<!-- <pre>
+  {{item | json }}
+</pre> -->

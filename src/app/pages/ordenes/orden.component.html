@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <!-- PANEL HEADLINE -->
-        <div class="panel panel-headline">
+        <div *ngIf = "(orden_id != 'nuevo')" class="panel panel-headline">
             <div class="row">
                 <div class="col-md-9">
                     <div class="panel-heading">
@@ -16,7 +16,7 @@
                     </div>
                 </div>
             </div>
-            <div class="panel-body">
+            <div  class="panel-body">
                 <h4>Opciones de Actualización</h4>
                 <p></p>
                 <!-- <form ngNativeValidate #f="ngForm" (ngSubmit)="guardar(f.value)" class="form p-t-20"> -->
@@ -96,6 +96,100 @@
             
         </div>
         <!-- END PANEL HEADLINE -->
+
+        <!-- PANEL HEADLINE -->
+        <div *ngIf = "(orden_id === 'nuevo')" class="panel panel-headline">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Info de la Orden</h3>
+                        <p class="panel-subtitle"></p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="panel-heading">
+                        
+                        <p class="panel-subtitle"><a routerLink="/ordenes">Ir a Ordenes +</a></p>
+                    </div>
+                </div>
+            </div>
+            <div  class="panel-body">
+                <h4>Opciones de Actualización</h4>
+                <p></p>
+                <!-- <form ngNativeValidate #f="ngForm" (ngSubmit)="guardar(f.value)" class="form p-t-20"> -->
+                <form #f="ngForm" ngNativeValidate (ngSubmit)="guardarNuevo(f.value)" class="form p-t-20">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="exampleInputuname">Cliente</label>
+                                
+                                <select [(ngModel)]="orden.cliente" 
+                                        name="cliente" 
+                                        class="form-control">
+                                         <option *ngFor="let cliente of clientes" [value]="cliente._id">{{cliente.nombre}}</option>
+                       
+                                 </select>
+
+                                <!-- <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                                    <input [ngModel]="orden.cliente.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre de usuario" required>
+                                </div> -->
+
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            
+                            <div class="form-group">
+                                <label for="exampleInputuname">Nº de Orden:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                                    <input [(ngModel)]="orden.num_orden" name="num_orden" type="text" class="form-control" placeholder="Numero de Orden" required>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                   
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Tipo</label>
+                                
+                                <select [(ngModel)]="orden.tipo" name="tipo" class="form-control">
+                                    <option value="COTIZACION">COTIZACION</option>
+                                    <option value="FACTURA">FACTURA</option>
+                                </select>
+
+                                <!-- <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-email"></i></div>
+                                    <input [ngModel]="orden.tipo" [disabled] name="tipo" type="text" class="form-control"  placeholder="COTIZACION" required>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Total</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-email"></i></div>
+                                    <input [ngModel]="totalAmount"  name="total" type="decimal" class="form-control"  placeholder="0.0" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    
+                    <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">
+                        <i class="fa fa-save"></i>
+                        Guardar</button>
+                   
+                    
+                </form>
+            </div>
+            
+        </div>
+        <!-- END PANEL HEADLINE -->
     </div>
     
 
@@ -117,7 +211,7 @@
             </div> 
             <div class="col-md-4">
                     <br>
-                    <button (click)="crearItem()" type="button" class="btn btn-success waves-effect waves-light m-r-10">
+                    <button *ngIf="orden_id != 'nuevo'"  (click)="crearItem(orden._id)" type="button" class="btn btn-success waves-effect waves-light m-r-10">
                         <i class="fa fa-plus"></i>
                         Crear Item</button>
                     

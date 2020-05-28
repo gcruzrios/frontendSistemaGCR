@@ -36,7 +36,29 @@ export class OrdenesComponent implements OnInit {
   }
 
   borrarOrden(orden: Orden){
-    this._ordenService.borrarOrden( orden._id)
+   
+
+
+    swal({
+      title: 'Está seguro?',
+      text: 'Va a borrar la siguiente orden : ' + orden.num_orden,
+      icon: 'warning',
+
+      buttons:{cancel:true,confirm:true},
+      //buttons: true,
+      dangerMode: true,
+    })
+    .then((borrar) => {
+
+      console.log(borrar);
+      if (borrar) {
+
+        this._ordenService.borrarOrden( orden._id)
         .subscribe( () => this.CargarOrdenes());
+      
+      }
+    });
+
+
 }
 }

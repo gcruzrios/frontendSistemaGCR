@@ -38,6 +38,30 @@ export class CategoriaService {
 
   
 
+
+
+  crearCategoria(nombre : string){
+    let url = URL_SERVICIOS +'/categoria'
+    url += '?token='+ this._usuarioService.token;
+    console.log(url);
+    console.log(nombre);
+    return this.http.post (url,{ nombre })
+          .map ((resp:any) => {
+          // swal('Categoria creado', categoria.nombre, 'success')
+          
+          return resp.categoria })
+          .catch( err =>{
+
+            ///console.log (err.error.mensaje);
+            swal(err.error.mensaje, err.error.errors.message, 'error');
+            return Observable.throw(err);
+          });
+          
+         
+  }
+
+
+ /*
   crearCategoria( categoria: Categoria){
     let url = URL_SERVICIOS + '/categoria';
     return this.http.post(url, categoria)
@@ -54,6 +78,7 @@ export class CategoriaService {
         return Observable.throw(err);
       });
   }
+ */
 
   actualizarCategoria(categoria: Categoria){
 
@@ -74,7 +99,7 @@ export class CategoriaService {
           })
           .catch( err =>{
 
-            ///console.log (err.error.mensaje);
+            console.log (err.error.mensaje);
             swal(err.error.mensaje, err.error.errors.message, 'error');
             return Observable.throw(err);
           });

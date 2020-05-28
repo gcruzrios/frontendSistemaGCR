@@ -6,6 +6,7 @@ import  swal from 'sweetalert';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { UsuarioService } from './usuario.service';
+import {Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,15 @@ export class ItemService {
   constructor(public http: HttpClient, public _usuarioService : UsuarioService,
               public router: Router) { }
 
+  
+  
+  cargarItems(){
+
+    let url =URL_SERVICIOS +'/item';
+    //console.log(url);
+    return this.http.get(url);
+  }
+  
   cargarItemsOrden(orden: string ){
 
     let url =URL_SERVICIOS +'/item/orden/'+ orden;
@@ -37,32 +47,48 @@ export class ItemService {
 
   
 
-/*
+
   crearItem( item: Item){
     //nombre : string
-    let url = URL_SERVICIOS + '/item';
-    return this.http.post(url, item)
-      .map( (resp: any) =>{
+    if (!item._id){
+      let url = URL_SERVICIOS + '/item';
 
-          swal('Item creado', item.num_linea, 'success')
-          return resp.orden;
+      console.log('Estoy en crear item de Servicio');
+      console.log(item);
 
-      })
-      .catch( err =>{
 
-        ///console.log (err.error.mensaje);
-        swal(err.error.mensaje, err.error.errors.message, 'error');
-        return Observable.throw(err);
-      });
-  }
-*/
-  crearItem( nombre : string, id_orden:string ){
+      return this.http.post(url, item)
+        .map( (resp: any) =>{
+
+            swal('Item creado', item.num_linea, 'success')
+            return resp.orden;
+
+        })
+        .catch( err =>{
+
+          console.log (err.error.mensaje);
+          swal(err.error.mensaje, err.error.errors.message, 'error');
+          return Observable.throw(err);
+        });
+      }
+    }
+ 
+    private _listeners = new Subject <any> ();
+    listen(): Observable<any>{
+        return this._listeners.asObservable();
+    }
+    filter(filterBy: string){
+        this._listeners.next(filterBy);
+    }
+/*
+crearItem( linea: string, nombre : string, id_orden:string, cantidad: number, precio: number ){
     //
     let url = URL_SERVICIOS + '/item';
-    return this.http.post(url, { nombre, id_orden })
+    return this.http.post(url, { linea, nombre, id_orden, cantidad, precio })
       .map( (resp: any) =>{
 
-          swal('Item creado', nombre , 'success')
+          swal('Item creado', linea, 'success')
+          console.log('Respuesta', resp);
           return resp.item;
 
       })
@@ -73,6 +99,8 @@ export class ItemService {
         return Observable.throw(err);
       });
   }
+ */
+
 
   actualizarItem(item: Item){
 
@@ -87,7 +115,7 @@ export class ItemService {
               let itemDB: Item = resp.item;
               //this.guardarStorage(usuarioDB._id, this.token, usuarioDB)
             }
-            swal('Orden Actualizada', item.num_linea, 'success' );
+            swal('Item Actualizado', item.num_linea, 'success' );
             return true;
             
           })
